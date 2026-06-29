@@ -1,0 +1,30 @@
+# Secrets and credentials
+.env
+.env.*
+config.local.toml
+credentials.json
+token.json
+auth.json
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local cache and logs
+cache/
+.cache/
+logs/
+*.log
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
