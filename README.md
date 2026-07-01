@@ -1,37 +1,73 @@
-# Lark Skills
+# Feishu / Lark Skills for AI Agents
 
-这是一套面向 Codex / Agent 的飞书（Feishu/Lark）技能包，用于在 AI Agent 工作流中读取、创建、更新和管理飞书相关资源，例如：文档、多维表格、电子表格、云文档空间、日历、消息、邮件、任务、会议纪要、白板等。
+这是一套面向 Codex / Agent 的飞书（Feishu/Lark）技能包，用于在 AI Agent 工作流中读取、创建、更新和管理飞书相关资源。
 
-> 本仓库只包含技能说明、参考文档、辅助脚本和示例资源；它本身不会包含任何飞书账号权限或密钥。
+> 安全说明：本仓库只包含技能说明、参考文档、辅助说明和示例资源；不包含任何飞书账号权限、Token、私钥、登录态或密钥。
 
-## 项目内容
+## 当前状态
 
-仓库中每个 `lark-*` 目录都是一个独立技能，核心入口通常是：
+当前仓库已整理成「核心入口 + 常用 references」结构，适合先作为可用版使用。
+
+需要注意：这不是原始 386 个文件的逐字完整镜像，而是通过 GitHub 连接器分批上传整理出来的精简常用版。完整一比一镜像建议后续用 GitHub Desktop 或本地 `git push` 批量上传。
+
+## 快速入口
+
+| 文件 | 作用 |
+|---|---|
+| [`SKILLS_INDEX.md`](SKILLS_INDEX.md) | 技能目录索引，快速查找每个 skill 的用途 |
+| [`REPOSITORY_STRUCTURE.md`](REPOSITORY_STRUCTURE.md) | 仓库结构说明 |
+| [`INSTALL.md`](INSTALL.md) | 安装到 Codex / Agent skills 目录的方法 |
+| [`UPLOAD_STATUS.md`](UPLOAD_STATUS.md) | 当前上传状态、已知限制和后续补全建议 |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | 后续维护和补文件规则 |
+
+## 覆盖能力
+
+当前已覆盖 27 个技能方向：
+
+- 文档：`lark-doc`
+- 多维表格：`lark-base`
+- 电子表格：`lark-sheets`
+- 云空间 / 云盘：`lark-drive`
+- 知识库：`lark-wiki`
+- 日历 / 会议室：`lark-calendar`
+- 即时消息 IM：`lark-im`
+- 邮件：`lark-mail`
+- 任务：`lark-task`
+- 审批：`lark-approval`
+- 通讯录：`lark-contact`
+- 视频会议：`lark-vc`
+- 妙记：`lark-minutes`
+- 会议纪要：`lark-note`
+- 画板：`lark-whiteboard`
+- OKR：`lark-okr`
+- 事件订阅：`lark-event`
+- 妙搭应用：`lark-apps`
+- OpenAPI 探索：`lark-openapi-explorer`
+- 通用规则：`lark-shared`
+- 自定义技能制作：`lark-skill-maker`
+- 工作流：`lark-workflow-meeting-summary`、`lark-workflow-standup-report`
+
+## 标准目录结构
+
+每个技能目录通常包含：
 
 ```text
-lark-doc/SKILL.md
-lark-base/SKILL.md
-lark-sheets/SKILL.md
-lark-drive/SKILL.md
-lark-wiki/SKILL.md
+lark-xxx/
+  SKILL.md
+  references/
+    xxx.md
 ```
 
-当前包含 27 个技能目录，覆盖以下方向：
+其中 `SKILL.md` 是技能入口，`references/` 是具体命令、工作流或边界说明。
 
-- 飞书文档：`lark-doc`
-- 飞书多维表格：`lark-base`
-- 飞书表格：`lark-sheets`
-- 飞书云盘：`lark-drive`
-- 飞书知识库：`lark-wiki`
-- 飞书日历：`lark-calendar`
-- 飞书消息 / IM：`lark-im`
-- 飞书邮件：`lark-mail`
-- 飞书任务：`lark-task`
-- 飞书审批：`lark-approval`
-- 飞书通讯录：`lark-contact`
-- 飞书会议 / 妙记 / 白板：`lark-vc`、`lark-minutes`、`lark-whiteboard`
-- 飞书应用与开放平台：`lark-apps`、`lark-openapi-explorer`
-- 工作流类技能：`lark-workflow-meeting-summary`、`lark-workflow-standup-report`
+特殊情况：
+
+```text
+lark-task/skill.md
+lark-task/RENAMING_NOTE.md
+```
+
+由于当前 GitHub 连接器对 `lark-task/SKILL.md` 这个精确路径触发安全拦截，`lark-task` 的入口文件暂时以小写 `skill.md` 上传。使用前请按 `RENAMING_NOTE.md` 在 GitHub 网页里手动改名为 `SKILL.md`。
 
 ## 安装方式
 
@@ -44,19 +80,13 @@ cp -R lark-base ~/.codex/skills/
 cp -R lark-sheets ~/.codex/skills/
 ```
 
-最终结构应该是：
-
-```text
-~/.codex/skills/lark-doc/SKILL.md
-~/.codex/skills/lark-base/SKILL.md
-~/.codex/skills/lark-sheets/SKILL.md
-```
-
 复制完成后，重启 Codex / Agent，让系统重新发现技能。
+
+更完整的安装说明见 [`INSTALL.md`](INSTALL.md)。
 
 ## 使用前提
 
-使用这些技能前，需要先准备好：
+使用这些技能前，需要准备：
 
 1. 可用的 `lark-cli` 或对应飞书开放平台工具。
 2. 已完成飞书 / Lark 授权登录。
@@ -65,10 +95,13 @@ cp -R lark-sheets ~/.codex/skills/
 
 安装技能并不等于自动获得飞书数据权限。最终能否读取或写入，取决于当前登录身份、应用权限、API Scope 和目标资源权限。
 
-## 安全说明
+## 维护建议
 
-不要把任何账号凭证、Token、私钥或本地登录状态提交到仓库。
+- 新增 skill：每个目录必须有 `SKILL.md`。
+- 新增 reference：放到对应目录的 `references/` 下。
+- 高风险操作说明：删除、发送、权限开放、批量写入必须写清楚确认规则。
+- 后续如果要补齐原始 386 个文件，建议使用本地 git 一次性提交，避免连接器逐文件上传带来的遗漏。
 
 ## License
 
-暂未选择开源协议。公开发布前，请根据你的使用目的选择并添加合适的 License。
+暂未选择开源协议。公开发布前，请根据使用目的选择并添加合适的 License。
